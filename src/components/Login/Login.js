@@ -10,20 +10,20 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     width: "100%",
     height: "100vh",
-    "& .MuiButtonBase-root ":{
-      background:"#3f51b5",
+    "& .MuiButtonBase-root ": {
+      background: "#3f51b5",
       color: "white",
-     
-    }
+    },
   },
 }));
 export default function Login() {
   const [room, setroom] = useState("");
-  const [name, setname] = useState("")
+  const [name, setname] = useState("");
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Paper elevation="10"
+      <Paper
+        elevation="10"
         style={{ padding: "1em ", width: "30vw", background: "whitesmoke" }}
       >
         <Grid container>
@@ -35,6 +35,7 @@ export default function Login() {
               helperText="Enter your Name"
               variant="outlined"
               fullWidth
+              onChange={(e) => setname(e.target.value)}
               style={{ margin: 8 }}
             />
           </Grid>
@@ -47,7 +48,7 @@ export default function Login() {
             <TextField
               label="Room"
               size="small"
-              
+              onChange={(e) => setroom(e.target.value)}
               helperText="Enter the Room Name"
               variant="outlined"
               fullWidth
@@ -58,12 +59,25 @@ export default function Login() {
         </Grid>
         <Grid container>
           <Grid item xs={12} sm={2}></Grid>
-          <Grid item xs={12} sm={8}  style={{display: 'flex', justifyContent:"center"}}>
-         <Link style={{textDecoration:"none"} }  to={`/room?${room}&&${name}`}>  <Button>Login</Button></Link>
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <Link
+              onClick={(event) =>
+                !name || !room ? event.preventDefault() : ""
+              }
+              style={{ textDecoration: "none" }}
+              to={`/room?room=${room}&name=${name}`}
+            >
+              {" "}
+              <Button>Login</Button>
+            </Link>
           </Grid>
           <Grid item xs={12} sm={2}></Grid>
         </Grid>
-        
       </Paper>
     </div>
   );
