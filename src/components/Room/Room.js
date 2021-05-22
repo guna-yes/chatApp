@@ -1,17 +1,27 @@
+
+
 import React, { useEffect, useState } from "react";
 import querystring from "query-string";
-const Room = ({ location }) => {
-  const [name, setname] = useState("");
-  const [room, setroom] = useState("");
-  useEffect(() => {
-    const { name, room } = querystring.parse(location.search);
-    setroom(room);
-    setname(name);
-    return () => {};
-  }, []);
-  return;
-  <div>
+import io from "socket.io-client"
+export default function Room({location}) {
+
+const ENDPOINT="http://localhost:8000/"
+    const [name, setname] = useState("");
+    const [room, setroom] = useState("");
+    useEffect(() => {
+      const { name, room } = querystring.parse(location.search);
+      setroom(room);
+      setname(name);
       
-  </div>;
-};
-export default Room;
+     const  socket=io(ENDPOINT)
+     socket.emit('join',{name,room})
+      return () => {};
+    }, [ENDPOINT,location.search]);
+    return (
+        <div>
+        Room
+            
+        </div>
+    )
+}
+
